@@ -18,9 +18,10 @@ class CreateJawabanTable extends Migration
             $table->text('isi');
             $table->date('tanggal_dibuat');
             $table->date('tanggal_diperbaharui')->nullable();
-            $table->integer('pertanyaan_id');
+            $table->unsignedBigInteger('pertanyaan_id');
             $table->integer('jawaban_votes_id');
             $table->timestamps();
+            $table->foreign('pertanyaan_id')->references('id')->on('pertanyaan');
         });
     }
 

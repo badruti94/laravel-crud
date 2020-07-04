@@ -10,10 +10,7 @@
             <th scope="col">No</th>
             <th scope="col">Judul</th>
             <th scope="col">Isi</th>
-            <th scope="col">Tanggal Dibuat</th>
-            <th scope="col">Tanggal Diperbaharui</th>
-            <th scope="col">Id Jawaban Tepat</th>
-            <th scope="col">Votes</th>
+            <th scope="col">Aksi</th>
         </tr>
     </thead>
     <tbody>
@@ -22,13 +19,19 @@
             <th scope="row">{{ $loop->iteration }}</th>
             <td>{{ $item->judul }}</td>
             <td>{{ $item->isi }}</td>
-            <td>{{ $item->tanggal_dibuat }}</td>
-            <td>{{ $item->tanggal_diperbaharui }}</td>
-            <td>{{ $item->jawaban_tepat_id }}</td>
-            <td>{{ $item->pertanyaan_votes_id }}</td>
+            <td>
+                <a href="{{ url('/pertanyaan/' . $item->id) }}" class="btn btn-primary">Show</a>
+                <a href="{{ url('/pertanyaan/' . $item->id . '/edit') }}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                <form action="{{ url('/pertanyaan/' . $item->id) }}" method="post" style="display: inline;">
+                @csrf
+                @method('delete')
+
+                <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                </form>
+            </td>
         </tr>
         @endforeach
-        
+
     </tbody>
 </table>
 

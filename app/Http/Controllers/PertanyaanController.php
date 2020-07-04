@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\PertanyaanModel;
-use Illuminate\Http\Request;
 
+use Illuminate\Http\Request;
+use App\Models\PertanyaanModel;
 class PertanyaanController extends Controller
 {
     public function index()
@@ -15,16 +15,41 @@ class PertanyaanController extends Controller
     }
     public function create()
     {
-        return view('pertanyaan.form');
+        return view('pertanyaan.create');
     }
     public function store(Request $request)
     {
         $data = $request->all();
-        unset($data['_token']);
         $item = PertanyaanModel::insert($data);
 
         if($item){
             return redirect('pertanyaan');
         }
     }
+
+    public function show($id)
+    {
+        $item = PertanyaanModel::get_by_id($id);
+        return view('pertanyaan.show', compact('item'));
+    }
+
+    public function edit($id)
+    {
+        $item = PertanyaanModel::get_by_id($id);
+        return view('pertanyaan.edit', compact('item'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $item = PertanyaanModel::update($request->all(), $id);
+        return redirect('pertanyaan');
+    }
+
+    public function destroy($id)
+    {
+        $item = PertanyaanModel::delete($id);
+        return redirect('pertanyaan');
+    }
+
+    
 }
